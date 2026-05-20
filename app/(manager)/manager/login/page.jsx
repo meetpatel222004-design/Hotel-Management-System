@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Briefcase } from "lucide-react";
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { useDispatch } from "react-redux";
 import { staffLogin } from "@/store/slices/staffAuthSlice";
 
@@ -24,7 +25,8 @@ export default function ManagerLogin() {
   };
 
   return (
-    <Container className="min-h-screen flex items-center justify-center">
+    <Container className="min-h-screen flex items-center justify-center relative">
+      <div className="absolute top-4 right-4"><ThemeToggle /></div>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
         <div className="glass-strong rounded-3xl p-8 ring-glow">
           <div className="flex items-center justify-center mb-6">

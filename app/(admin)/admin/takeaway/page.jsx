@@ -34,17 +34,17 @@ export default function AdminTakeawayPage() {
   const completedOrders = allOrders.filter((o) => ["completed", "rejected"].includes(o.status));
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Takeaway Orders" subtitle="Review and manage takeaway orders" backTo="/admin/dashboard" />
 
       {/* Pending review - needs admin action */}
       {pendingOrders.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-red-400 mb-3 px-1 flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-red-400 mb-3 px-1 flex items-center gap-2">
             <Clock className="h-4 w-4 animate-pulse" />
             Needs Review ({pendingOrders.length})
           </h2>
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {pendingOrders.map((order) => (
               <motion.div
                 key={order.id}
@@ -103,8 +103,8 @@ export default function AdminTakeawayPage() {
       {/* Active orders */}
       {activeOrders.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-sm font-semibold mb-3 px-1">Active Orders ({activeOrders.length})</h2>
-          <div className="space-y-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1">Active Orders ({activeOrders.length})</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {activeOrders.filter((o) => o.status !== "pending_review").map((order) => (
               <motion.div
                 key={order.id}
@@ -160,8 +160,8 @@ export default function AdminTakeawayPage() {
       {/* Completed */}
       {completedOrders.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-sm font-semibold mb-3 px-1">Completed</h2>
-          <div className="space-y-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1">Completed</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {completedOrders.map((order) => (
               <div key={order.id} className="glass rounded-2xl p-3 flex items-center justify-between opacity-50">
                 <div>

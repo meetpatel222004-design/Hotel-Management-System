@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ShoppingCart, Users, DollarSign, Clock, ChevronRight, UtensilsCrossed, ChefHat, BellRing, Briefcase, ShoppingBag } from "lucide-react";
+import { ShoppingCart, Users, DollarSign, Clock, ChevronRight, UtensilsCrossed, ChefHat, BellRing, Briefcase, ShoppingBag, TrendingUp } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { TopBar } from "@/components/layout/TopBar";
 import { useSelector } from "react-redux";
@@ -26,7 +26,7 @@ export default function AdminDashboard() {
     { label: "Active Orders", value: activeOrders.length, icon: ShoppingCart, color: "from-primary/30 via-primary/10 to-transparent", action: () => router.push("/admin/orders") },
     { label: "Occupied Tables", value: occupiedTables.length, icon: Users, color: "from-blue-500/30 via-blue-500/10 to-transparent", action: () => router.push("/admin/tables") },
     { label: "Waiting Bill", value: waitingBillTables.length, icon: DollarSign, color: "from-green-500/30 via-green-500/10 to-transparent", action: () => router.push("/admin/billing") },
-    { label: "Today Revenue", value: formatPrice(totalRevenue), icon: Clock, color: "from-yellow-500/30 via-yellow-500/10 to-transparent", action: () => {} },
+    { label: "Today Revenue", value: formatPrice(totalRevenue), icon: TrendingUp, color: "from-yellow-500/30 via-yellow-500/10 to-transparent", action: () => {} },
     { label: "Waiter Calls", value: pendingCalls.length, icon: BellRing, color: "from-red-500/30 via-red-500/10 to-transparent", action: () => {} },
     { label: "Takeaway", value: pendingTakeaway.length, icon: ShoppingBag, color: "from-cyan-500/30 via-cyan-500/10 to-transparent", action: () => router.push("/admin/takeaway") },
   ];
@@ -42,10 +42,10 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Admin Dashboard" subtitle="Restaurant Management" noBack />
 
-      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
         {stats.map((stat, idx) => (
           <motion.button
             key={idx}
@@ -53,20 +53,20 @@ export default function AdminDashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
             onClick={stat.action}
-            className="relative rounded-2xl glass-strong p-4 overflow-hidden ring-glow hover:ring-primary/50 transition-all"
+            className="relative rounded-2xl glass-strong p-5 overflow-hidden ring-glow hover:ring-primary/50 transition-all text-left"
           >
             <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${stat.color}`} />
             <div className="relative">
-              <stat.icon className="h-5 w-5 mb-2 text-muted-foreground" />
-              <div className="text-xl md:text-2xl font-bold">{stat.value}</div>
-              <div className="text-[11px] text-muted-foreground mt-1">{stat.label}</div>
+              <stat.icon className="h-5 w-5 mb-3 text-muted-foreground" />
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">{stat.value}</div>
+              <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
             </div>
           </motion.button>
         ))}
       </div>
 
       <div className="mt-8">
-        <h2 className="text-sm font-semibold mb-3 px-1">Quick Actions</h2>
+        <h2 className="text-sm font-semibold mb-4 px-1">Quick Actions</h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-3">
           {quickActions.map((action, idx) => (
             <motion.button
@@ -85,19 +85,20 @@ export default function AdminDashboard() {
       </div>
 
       <div className="mt-8">
-        <div className="flex items-center justify-between px-1 mb-3">
+        <div className="flex items-center justify-between px-1 mb-4">
           <h2 className="text-sm font-semibold">Active Orders</h2>
           <button onClick={() => router.push("/admin/orders")} className="text-xs text-primary hover:underline flex items-center gap-1">
             View all <ChevronRight className="h-3 w-3" />
           </button>
         </div>
-        <div className="space-y-2">
-          {activeOrders.slice(0, 5).map((order) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          {activeOrders.slice(0, 8).map((order) => (
             <motion.div
               key={order.id}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="glass rounded-2xl p-3 flex items-center justify-between"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              onClick={() => router.push(`/admin/orders/${order.id}`)}
+              className="glass rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:bg-white/5 transition"
             >
               <div>
                 <p className="font-semibold text-sm">Table {order.tableNumber}</p>
@@ -114,7 +115,7 @@ export default function AdminDashboard() {
             </motion.div>
           ))}
           {activeOrders.length === 0 && (
-            <p className="text-sm text-muted-foreground text-center py-6">No active orders</p>
+            <p className="text-sm text-muted-foreground text-center py-6 col-span-full">No active orders</p>
           )}
         </div>
       </div>

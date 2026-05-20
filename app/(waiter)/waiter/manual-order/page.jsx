@@ -84,7 +84,7 @@ export default function ManualOrderPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <AnimatePresence mode="wait">
         {step === "order" ? (
           <motion.div key="order" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
@@ -143,7 +143,7 @@ export default function ManualOrderPage() {
             </div>
 
             {/* Menu items */}
-            <div className="mt-4 space-y-2">
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {filteredItems.map((item) => {
                 const inCart = cart.find((c) => c.id === item.id);
                 return (

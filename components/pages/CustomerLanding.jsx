@@ -6,6 +6,7 @@ import { ArrowRight, QrCode, Sparkles, Timer, Utensils } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { GradientBlobs } from "@/components/ui/GradientBlobs";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { useDineInLockGuard } from "@/hooks/useSessionGuard";
 
 export default function CustomerLanding() {
@@ -14,7 +15,7 @@ export default function CustomerLanding() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <GradientBlobs />
-      <Container className="relative pt-10 pb-16">
+      <Container className="relative pt-10 pb-16 max-w-3xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground font-bold">
@@ -23,6 +24,7 @@ export default function CustomerLanding() {
             <span className="font-semibold tracking-tight">Plate</span>
           </div>
           <span className="text-xs text-muted-foreground">v0.2 - beta</span>
+          <ThemeToggle />
         </div>
 
         <motion.div
@@ -35,11 +37,11 @@ export default function CustomerLanding() {
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             The new restaurant operating system
           </div>
-          <h1 className="mt-5 text-[40px] leading-[1.05] font-bold tracking-tight">
+          <h1 className="mt-5 text-3xl sm:text-4xl lg:text-5xl leading-[1.05] font-bold tracking-tight">
             Skip the wait. <br />
             <span className="text-gradient-warm">Order from your seat.</span>
           </h1>
-          <p className="mt-4 text-base text-muted-foreground max-w-sm">
+          <p className="mt-4 text-sm sm:text-base text-muted-foreground max-w-md">
             Scan, browse, and pay - all from your table. Built for the rush hour.
           </p>
         </motion.div>

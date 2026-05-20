@@ -7,6 +7,7 @@ import { selectAllOrders, updateGroupStatus } from "@/store/slices/ordersSlice";
 import { useRealtimeSync } from "@/hooks/useRealtimeSync";
 import { cn } from "@/lib/cn";
 import { Check, ChefHat, Flame, BellRing } from "lucide-react";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 const ORDER_STATUSES = ["received", "preparing", "cooking", "ready"];
 
@@ -84,12 +85,15 @@ export default function KitchenDashboard() {
   const readyForPickup = activeGroups.filter((g) => g.status === "ready");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur px-4 sm:px-6 lg:px-8 py-3 border-b border-white/5 mb-4">
-        <h1 className="text-xl md:text-2xl font-bold">Kitchen</h1>
-        <p className="text-xs text-muted-foreground mt-1">
-          {needsAction.length} to prepare · {readyForPickup.length} waiting for waiter
-        </p>
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur py-3 border-b border-white/5 mb-4 flex items-center justify-between">
+        <div>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">Kitchen</h1>
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+            {needsAction.length} to prepare · {readyForPickup.length} waiting for waiter
+          </p>
+        </div>
+        <ThemeToggle />
       </div>
 
       {activeGroups.length === 0 ? (
@@ -106,7 +110,7 @@ export default function KitchenDashboard() {
               <h2 className="text-sm font-semibold text-muted-foreground mb-3 px-1">
                 Needs Action ({needsAction.length})
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {needsAction.map((group, idx) => {
                   const Icon = getButtonIcon(group.status);
                   return (
@@ -163,7 +167,7 @@ export default function KitchenDashboard() {
               <h2 className="text-sm font-semibold text-green-500 mb-3 px-1">
                 Ready for Waiter ({readyForPickup.length})
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {readyForPickup.map((group, idx) => (
                   <motion.div
                     key={`${group.orderId}-${group.id}`}

@@ -29,14 +29,14 @@ export default function WaiterOrdersPage() {
   const otherGroups = activeGroups.filter((g) => g.status !== "ready");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="All Orders" subtitle="Order tracking" backTo="/waiter/dashboard" />
 
       {/* Ready to serve */}
       {readyGroups.length > 0 && (
         <div className="mt-6">
           <h2 className="text-sm font-semibold text-green-500 mb-3 px-1">Ready to Serve ({readyGroups.length})</h2>
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {readyGroups.map((group) => (
               <motion.div
                 key={`${group.orderId}-${group.id}`}
@@ -74,7 +74,7 @@ export default function WaiterOrdersPage() {
       {otherGroups.length > 0 && (
         <div className="mt-8">
           <h2 className="text-sm font-semibold text-muted-foreground mb-3 px-1">In Kitchen ({otherGroups.length})</h2>
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {otherGroups.map((group) => (
               <div key={`${group.orderId}-${group.id}`} className="glass rounded-2xl p-3 flex items-center justify-between">
                 <div>

@@ -28,7 +28,7 @@ export default function WaitingListPage() {
   const completedEntries = entries.filter((e) => e.status === "seated" || e.status === "cancelled");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Waiting List" subtitle="Manage customer queue" backTo="/manager/dashboard" />
 
       <motion.button
@@ -42,7 +42,7 @@ export default function WaitingListPage() {
       </motion.button>
 
       {/* Stats */}
-      <div className="mt-6 grid grid-cols-3 sm:grid-cols-3 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
         <div className="glass-strong rounded-2xl p-3 text-center">
           <p className="text-2xl font-bold">{activeEntries.filter((e) => e.status === "waiting").length}</p>
           <p className="text-xs text-muted-foreground">Waiting</p>
@@ -59,11 +59,11 @@ export default function WaitingListPage() {
 
       {/* Active entries */}
       <div className="mt-6">
-        <h2 className="text-sm font-semibold mb-3 px-1">Waiting ({activeEntries.length})</h2>
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1">Waiting ({activeEntries.length})</h2>
         {activeEntries.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-6">No one waiting right now</p>
         ) : (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {activeEntries.map((entry, idx) => (
               <motion.div
                 key={entry.id}
@@ -125,7 +125,7 @@ export default function WaitingListPage() {
       {/* Completed entries */}
       {completedEntries.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-sm font-semibold mb-3 px-1">Completed</h2>
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1">Completed</h2>
           <div className="space-y-2">
             {completedEntries.map((entry) => (
               <div key={entry.id} className="glass rounded-2xl p-3 flex items-center justify-between opacity-50">

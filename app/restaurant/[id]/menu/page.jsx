@@ -58,7 +58,7 @@ export default function MenuPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-32 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-32 max-w-5xl mx-auto">
       <TopBar
         title={restaurant.name}
         subtitle={`Table ${tableNumber}`}
@@ -170,7 +170,7 @@ export default function MenuPage() {
       </div>
 
       {/* Menu items */}
-      <div className="mt-5 space-y-3">
+      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
         <AnimatePresence mode="popLayout">
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (

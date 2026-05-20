@@ -24,11 +24,11 @@ export default function AdminBillingPage() {
   const completedAmount = completedBills.reduce((sum, o) => sum + o.totalAmount, 0);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Billing" subtitle="Invoice management" backTo="/admin/dashboard" />
 
       {/* Summary cards */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-strong rounded-2xl p-4">
           <p className="text-xs text-muted-foreground mb-1">Total Revenue</p>
           <p className="text-2xl font-bold">{formatPrice(totalRevenue)}</p>
@@ -45,14 +45,14 @@ export default function AdminBillingPage() {
 
       {/* Active bills */}
       <div className="mt-8">
-        <h2 className="text-sm font-semibold mb-3 px-1 flex items-center gap-2">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1 flex items-center gap-2">
           <Receipt className="h-4 w-4 text-primary" />
           Active Bills ({activeBills.length})
         </h2>
         {activeBills.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-6">No active bills</p>
         ) : (
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {activeBills.map((bill) => (
               <motion.button
                 key={bill.id}
@@ -86,11 +86,11 @@ export default function AdminBillingPage() {
       {/* Completed bills */}
       {completedBills.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-sm font-semibold mb-3 px-1 flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1 flex items-center gap-2">
             <Check className="h-4 w-4 text-green-500" />
             Completed ({completedBills.length})
           </h2>
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {completedBills.map((bill) => (
               <motion.button
                 key={bill.id}
