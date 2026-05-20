@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllOrders, updateGroupStatus } from "@/store/slices/ordersSlice";
+import { useRealtimeSync } from "@/hooks/useRealtimeSync";
 import { cn } from "@/lib/cn";
 import { Check, ChefHat, Flame, BellRing } from "lucide-react";
 
@@ -12,6 +13,7 @@ const ORDER_STATUSES = ["received", "preparing", "cooking", "ready"];
 export default function KitchenDashboard() {
   const dispatch = useDispatch();
   const orders = useSelector(selectAllOrders);
+  useRealtimeSync();
 
   const getNextStatus = (currentStatus) => {
     const idx = ORDER_STATUSES.indexOf(currentStatus);

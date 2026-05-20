@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Plus, UserCheck, ChefHat, Briefcase, User } from "lucide-react";
+import { Plus, UserCheck, ChefHat, Briefcase, User, Eye, EyeOff } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { TopBar } from "@/components/layout/TopBar";
 import { Modal } from "@/components/shared/Modal";
@@ -26,6 +26,13 @@ const ROLE_LABELS = {
   kitchen: "Kitchen Staff",
   manager: "Manager",
   admin: "Admin",
+};
+
+const ROLE_ACCESS = {
+  waiter: ["Take orders", "View calls", "Serve food"],
+  kitchen: ["View orders", "Update cooking status"],
+  manager: ["Manage tables", "Manage menu", "Manage staff", "View orders", "Waiting list"],
+  admin: ["Full restaurant control", "Billing", "Reports", "Settings"],
 };
 
 export default function ManagerStaffPage() {
@@ -67,18 +74,29 @@ export default function ManagerStaffPage() {
                   key={member.id}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="glass rounded-2xl p-3 flex items-center gap-3"
+                  className="glass rounded-2xl p-4"
                 >
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary shrink-0">
-                    <Icon className="h-5 w-5" />
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary shrink-0">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm">{member.name}</p>
+                      <p className="text-xs text-muted-foreground">ID: {member.staffId}</p>
+                    </div>
+                    <span className={`text-xs font-semibold rounded-full px-2.5 py-1 ${member.isActive ? "bg-green-500/15 text-green-500" : "bg-red-500/15 text-red-500"}`}>
+                      {member.isActive ? "Active" : "Inactive"}
+                    </span>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm">{member.name}</p>
-                    <p className="text-xs text-muted-foreground">ID: {member.staffId}</p>
+                  {/* Access info */}
+                  <div className="mt-3 pt-3 border-t border-white/5">
+                    <p className="text-xs text-muted-foreground mb-1.5">Access:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {(ROLE_ACCESS[role] || []).map((perm) => (
+                        <span key={perm} className="text-xs bg-white/5 rounded-lg px-2 py-1">{perm}</span>
+                      ))}
+                    </div>
                   </div>
-                  <span className={`text-xs font-semibold rounded-full px-2.5 py-1 ${member.isActive ? "bg-green-500/15 text-green-500" : "bg-red-500/15 text-red-500"}`}>
-                    {member.isActive ? "Active" : "Inactive"}
-                  </span>
                 </motion.div>
               ))}
             </div>
@@ -95,17 +113,36 @@ function AddStaffModal({ open, onClose }) {
   const [name, setName] = useState("");
   const [role, setRole] = useState("waiter");
   const [staffId, setStaffId] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name.trim()) return;
-    // In a real app, this would dispatch to Redux or API
-    setName(""); setRole("waiter"); setStaffId("");
+
+    if (password && password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    if (password && password.length < 4) {
+      setError("Password must be at least 4 characters");
+      return;
+    }
+
+    setError("");
+    setName(""); setRole("waiter"); setStaffId(""); setPassword(""); setConfirmPassword("");
+    onClose();
+  };
+
+  const handleClose = () => {
+    setName(""); setRole("waiter"); setStaffId(""); setPassword(""); setConfirmPassword(""); setError("");
     onClose();
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Add Staff Member">
+    <Modal open={open} onClose={handleClose} title="Add Staff Member">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-1.5">Full Name</label>
@@ -119,7 +156,7 @@ function AddStaffModal({ open, onClose }) {
         </div>
         <div>
           <label className="block text-sm font-medium mb-1.5">Role</label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {["waiter", "kitchen", "manager"].map((r) => (
               <button
                 key={r}
@@ -133,9 +170,44 @@ function AddStaffModal({ open, onClose }) {
               </button>
             ))}
           </div>
+          <p className="text-xs text-muted-foreground mt-1.5">
+            Access: {(ROLE_ACCESS[role] || []).join(", ")}
+          </p>
         </div>
+        <div>
+          <label className="block text-sm font-medium mb-1.5">Password</label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setError(""); }}
+              placeholder="Set login password"
+              className="w-full glass rounded-2xl px-4 py-3 pr-10 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition"
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+        </div>
+        {password && (
+          <div>
+            <label className="block text-sm font-medium mb-1.5">Confirm Password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => { setConfirmPassword(e.target.value); setError(""); }}
+              placeholder="Re-enter password"
+              className="w-full glass rounded-2xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+        )}
+        {error && <p className="text-xs text-destructive">{error}</p>}
         <div className="flex gap-3 pt-2">
-          <button type="button" onClick={onClose} className="flex-1 rounded-2xl border border-border h-12 text-sm font-semibold hover:bg-white/5 transition">Cancel</button>
+          <button type="button" onClick={handleClose} className="flex-1 rounded-2xl border border-border h-12 text-sm font-semibold hover:bg-white/5 transition">Cancel</button>
           <button type="submit" className="flex-1 rounded-2xl bg-primary text-primary-foreground h-12 text-sm font-semibold ring-glow">Add Staff</button>
         </div>
       </form>

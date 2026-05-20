@@ -9,6 +9,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSubtotal } from "@/store/slices/cartSlice";
 import { placeFirstOrder, markPaid } from "@/store/slices/dineInSlice";
+import { addTakeawayOrder } from "@/store/slices/takeawaySlice";
 import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { useTakeawayCartGuard } from "@/hooks/useSessionGuard";
@@ -29,10 +30,17 @@ export default function TakeawayPayment() {
     setPaying(true);
     setTimeout(() => {
       dispatch(markPaid());
-      const id = "ORD-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+      const id = "TK-" + Math.random().toString(36).slice(2, 8).toUpperCase();
       dispatch(placeFirstOrder({ orderId: id, items: [...items], servingTimeId: "now" }));
-      // Cart is kept so the takeaway order page can display the items.
-      // It is cleared when the order completes in TakeawayOrder page.
+      // Also add to takeaway orders for admin review
+      dispatch(addTakeawayOrder({
+        id,
+        customerName: "Online Customer",
+        customerPhone: "",
+        items: items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+        totalAmount: total,
+        paymentMethod: method,
+      }));
       router.replace(`/takeaway-order/${id}`);
     }, 1200);
   };

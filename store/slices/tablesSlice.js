@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const makeQR = (tableNumber) =>
+  `plate://restaurant/spice-garden/table/T${tableNumber}`;
+
 const initialState = {
   tables: [
     {
@@ -10,6 +13,9 @@ const initialState = {
       currentOrderId: "ORD001",
       runningBill: 450,
       activeGroups: 1,
+      qrEnabled: true,
+      qrCode: makeQR(1),
+      restaurantId: "spice-garden",
     },
     {
       id: "table-2",
@@ -19,6 +25,9 @@ const initialState = {
       currentOrderId: null,
       runningBill: 0,
       activeGroups: 0,
+      qrEnabled: true,
+      qrCode: makeQR(2),
+      restaurantId: "spice-garden",
     },
     {
       id: "table-3",
@@ -28,6 +37,9 @@ const initialState = {
       currentOrderId: "ORD002",
       runningBill: 280,
       activeGroups: 1,
+      qrEnabled: true,
+      qrCode: makeQR(3),
+      restaurantId: "spice-garden",
     },
     {
       id: "table-4",
@@ -37,6 +49,9 @@ const initialState = {
       currentOrderId: "ORD003",
       runningBill: 650,
       activeGroups: 0,
+      qrEnabled: true,
+      qrCode: makeQR(4),
+      restaurantId: "spice-garden",
     },
     {
       id: "table-5",
@@ -46,6 +61,9 @@ const initialState = {
       currentOrderId: null,
       runningBill: 0,
       activeGroups: 0,
+      qrEnabled: true,
+      qrCode: makeQR(5),
+      restaurantId: "spice-garden",
     },
     {
       id: "table-6",
@@ -55,6 +73,9 @@ const initialState = {
       currentOrderId: null,
       runningBill: 0,
       activeGroups: 0,
+      qrEnabled: true,
+      qrCode: makeQR(6),
+      restaurantId: "spice-garden",
     },
   ],
 };
@@ -110,7 +131,27 @@ const tablesSlice = createSlice({
     },
 
     addTable(state, action) {
-      state.tables.push(action.payload);
+      const table = action.payload;
+      state.tables.push({
+        ...table,
+        qrCode: makeQR(table.number),
+        qrEnabled: true,
+        restaurantId: table.restaurantId || "spice-garden",
+      });
+    },
+
+    toggleTableQR(state, action) {
+      const table = state.tables.find((t) => t.id === action.payload);
+      if (table) {
+        table.qrEnabled = !table.qrEnabled;
+      }
+    },
+
+    regenerateQR(state, action) {
+      const table = state.tables.find((t) => t.id === action.payload);
+      if (table) {
+        table.qrCode = makeQR(table.number);
+      }
     },
   },
 });
@@ -122,6 +163,8 @@ export const {
   updateTableActiveGroups,
   closeTable,
   addTable,
+  toggleTableQR,
+  regenerateQR,
 } = tablesSlice.actions;
 
 export const selectAllTables = (state) => state.tables.tables;

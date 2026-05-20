@@ -2,18 +2,20 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { QrCode, Download, Users, DollarSign } from "lucide-react";
+import { Users, DollarSign, RefreshCw } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { TopBar } from "@/components/layout/TopBar";
-import { useSelector } from "react-redux";
-import { selectAllTables } from "@/store/slices/tablesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllTables, toggleTableQR, regenerateQR, updateTableStatus } from "@/store/slices/tablesSlice";
 import { selectAllOrders } from "@/store/slices/ordersSlice";
 import { formatPrice } from "@/lib/format";
 import { StatusPill } from "@/components/shared/StatusPill";
+import { QRCodeDisplay } from "@/components/shared/QRCodeDisplay";
 
 export default function ManagerTableDetail() {
   const router = useRouter();
   const params = useParams();
+  const dispatch = useDispatch();
   const tableId = params.id;
   const tables = useSelector(selectAllTables);
   const orders = useSelector(selectAllOrders);
@@ -33,19 +35,20 @@ export default function ManagerTableDetail() {
   }
 
   const tableOrders = orders.filter((o) => o.tableNumber === table.number);
-  const qrData = `plate://restaurant/spice-garden/table/T${table.number}`;
+  const mapStatus = (s) => s === "empty" ? "available" : s === "waiting-bill" ? "waiting" : s;
 
   return (
     <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
       <TopBar title={`Table ${table.number}`} subtitle={`${table.capacity} seats`} backTo="/manager/tables" />
 
+      {/* Table status card */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5 ring-glow">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-4xl font-black">T{table.number}</p>
             <p className="text-sm text-muted-foreground mt-1">{table.capacity} seats</p>
           </div>
-          <StatusPill status={table.status === "empty" ? "available" : table.status === "waiting-bill" ? "waiting" : table.status} />
+          <StatusPill status={mapStatus(table.status)} />
         </div>
 
         {table.status !== "empty" && (
@@ -60,30 +63,70 @@ export default function ManagerTableDetail() {
             </div>
           </div>
         )}
+
+        {/* Quick actions */}
+        <div className="mt-4 flex gap-2">
+          {table.status === "empty" && (
+            <button
+              onClick={() => dispatch(updateTableStatus({ tableId: table.id, status: "disabled" }))}
+              className="flex-1 text-xs rounded-xl bg-white/5 py-2.5 hover:bg-white/10 transition font-semibold"
+            >
+              Disable Table
+            </button>
+          )}
+          {table.status === "disabled" && (
+            <button
+              onClick={() => dispatch(updateTableStatus({ tableId: table.id, status: "empty" }))}
+              className="flex-1 text-xs rounded-xl bg-green-500/10 text-green-500 py-2.5 hover:bg-green-500/20 transition font-semibold"
+            >
+              Enable Table
+            </button>
+          )}
+        </div>
       </motion.div>
 
-      {/* QR Code */}
+      {/* QR Code section */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mt-4 glass rounded-2xl p-5">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-semibold">Table QR Code</h3>
           <div className="flex items-center gap-2">
-            <QrCode className="h-5 w-5 text-primary" />
-            <h3 className="text-sm font-semibold">Table QR Code</h3>
+            <button
+              onClick={() => dispatch(regenerateQR(table.id))}
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition"
+            >
+              <RefreshCw className="h-3.5 w-3.5" />
+              Regenerate
+            </button>
+            <button
+              onClick={() => dispatch(toggleTableQR(table.id))}
+              className={`text-xs font-semibold rounded-lg px-2.5 py-1 transition ${
+                table.qrEnabled ? "bg-green-500/10 text-green-500" : "bg-red-500/10 text-red-500"
+              }`}
+            >
+              {table.qrEnabled ? "Enabled" : "Disabled"}
+            </button>
           </div>
-          <button className="flex items-center gap-1.5 text-xs text-primary hover:underline">
-            <Download className="h-3.5 w-3.5" />
-            Download
-          </button>
         </div>
-        <div className="flex justify-center py-4">
-          <div className="h-48 w-48 bg-white rounded-2xl grid place-items-center p-6">
-            <div className="text-black text-center text-xs font-mono break-all leading-relaxed">
-              {qrData}
-            </div>
+
+        {table.qrEnabled ? (
+          <div className="flex justify-center py-2">
+            <QRCodeDisplay
+              value={table.qrCode}
+              size={160}
+              tableNumber={table.number}
+            />
           </div>
-        </div>
-        <p className="text-xs text-muted-foreground text-center mt-2">
-          Customers scan this to start ordering at Table {table.number}
-        </p>
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-sm text-muted-foreground">QR code is disabled for this table.</p>
+            <button
+              onClick={() => dispatch(toggleTableQR(table.id))}
+              className="mt-2 text-xs text-primary hover:underline"
+            >
+              Enable QR Code
+            </button>
+          </div>
+        )}
       </motion.div>
 
       {/* Orders */}

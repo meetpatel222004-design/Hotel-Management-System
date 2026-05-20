@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Plus, QrCode, Download } from "lucide-react";
+import { Plus, QrCode } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { TopBar } from "@/components/layout/TopBar";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllTables, updateTableStatus } from "@/store/slices/tablesSlice";
+import { selectAllTables, updateTableStatus, addTable, toggleTableQR } from "@/store/slices/tablesSlice";
 import { formatPrice } from "@/lib/format";
 import { StatusPill } from "@/components/shared/StatusPill";
 import { Modal } from "@/components/shared/Modal";
@@ -32,7 +32,7 @@ export default function ManagerTablesPage() {
         <span className="font-semibold text-sm">Add new table</span>
       </motion.button>
 
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
         {tables.map((table, idx) => (
           <motion.button
             key={table.id}
@@ -67,7 +67,6 @@ export default function ManagerTablesPage() {
               </div>
             )}
 
-            {/* Quick status toggle */}
             <div className="mt-3 flex gap-2">
               {table.status === "empty" && (
                 <button
@@ -85,47 +84,65 @@ export default function ManagerTablesPage() {
                   Enable
                 </button>
               )}
+              {table.qrEnabled && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); router.push(`/manager/tables/${table.id}`); }}
+                  className="flex-1 text-xs rounded-lg bg-primary/10 text-primary py-1.5 hover:bg-primary/20 transition flex items-center justify-center gap-1"
+                >
+                  <QrCode className="h-3 w-3" />
+                  QR
+                </button>
+              )}
             </div>
           </motion.button>
         ))}
       </div>
 
-      <AddTableModal
-        open={showAddModal}
-        onClose={() => setShowAddModal(false)}
-      />
+      <AddTableModal open={showAddModal} onClose={() => setShowAddModal(false)} />
     </Container>
   );
 }
 
 function AddTableModal({ open, onClose }) {
   const dispatch = useDispatch();
-  const tables = useSelector(selectAllTables);
   const [number, setNumber] = useState("");
-  const [seats, setSeats] = useState("4");
+  const [seatOption, setSeatOption] = useState("4");
+  const [customSeats, setCustomSeats] = useState("");
+  const [qrEnabled, setQrEnabled] = useState(true);
+
+  const capacity = seatOption === "custom" ? (parseInt(customSeats, 10) || 4) : parseInt(seatOption, 10);
 
   const handleAdd = (e) => {
     e.preventDefault();
     if (!number.trim()) return;
 
-    const tableNum = parseInt(number, 10);
-    const newTable = {
+    dispatch(addTable({
       id: `table-${Date.now()}`,
-      number: tableNum,
-      capacity: parseInt(seats, 10) || 4,
+      number: parseInt(number, 10),
+      capacity,
       status: "empty",
       currentOrderId: null,
       runningBill: 0,
       activeGroups: 0,
-    };
-
-    // Add to tables slice
-    dispatch({ type: "tables/addTable", payload: newTable });
+      qrEnabled,
+      restaurantId: "spice-garden",
+    }));
 
     setNumber("");
-    setSeats("4");
+    setSeatOption("4");
+    setCustomSeats("");
+    setQrEnabled(true);
     onClose();
   };
+
+  const seatOptions = [
+    { value: "2", label: "2 seats" },
+    { value: "4", label: "4 seats" },
+    { value: "6", label: "6 seats" },
+    { value: "8", label: "8 seats" },
+    { value: "10", label: "10 seats" },
+    { value: "custom", label: "Custom" },
+  ];
 
   return (
     <Modal open={open} onClose={onClose} title="Add New Table">
@@ -142,20 +159,55 @@ function AddTableModal({ open, onClose }) {
             required
           />
         </div>
+
         <div>
-          <label className="block text-sm font-medium mb-1.5">Number of Seats</label>
-          <select
-            value={seats}
-            onChange={(e) => setSeats(e.target.value)}
-            className="w-full glass rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-transparent"
-          >
-            <option value="2" className="bg-background">2 seats</option>
-            <option value="4" className="bg-background">4 seats</option>
-            <option value="6" className="bg-background">6 seats</option>
-            <option value="8" className="bg-background">8 seats</option>
-            <option value="10" className="bg-background">10 seats</option>
-          </select>
+          <label className="block text-sm font-medium mb-1.5">Seat Capacity</label>
+          <div className="grid grid-cols-3 gap-2">
+            {seatOptions.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setSeatOption(opt.value)}
+                className={`rounded-2xl py-2.5 text-sm font-semibold border transition ${
+                  seatOption === opt.value
+                    ? "border-primary/50 bg-primary/10 text-primary"
+                    : "border-border glass text-muted-foreground"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          {seatOption === "custom" && (
+            <input
+              type="number"
+              value={customSeats}
+              onChange={(e) => setCustomSeats(e.target.value)}
+              placeholder="Enter number of seats"
+              min="1"
+              max="20"
+              className="mt-2 w-full glass rounded-2xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          )}
         </div>
+
+        <div className="flex items-center justify-between glass rounded-2xl p-4">
+          <div>
+            <p className="text-sm font-semibold">Enable QR Code</p>
+            <p className="text-xs text-muted-foreground">Customers scan QR to order</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setQrEnabled(!qrEnabled)}
+            className={`relative h-7 w-12 rounded-full transition-colors ${qrEnabled ? "bg-primary" : "bg-white/10"}`}
+          >
+            <span
+              className={`absolute top-0.5 h-6 w-6 rounded-full bg-white transition-transform ${qrEnabled ? "translate-x-5.5" : "translate-x-0.5"}`}
+            />
+          </button>
+        </div>
+
         <div className="flex gap-3 pt-2">
           <button type="button" onClick={onClose} className="flex-1 rounded-2xl border border-border h-12 text-sm font-semibold hover:bg-white/5 transition">
             Cancel

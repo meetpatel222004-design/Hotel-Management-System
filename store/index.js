@@ -14,7 +14,7 @@ import waitingListReducer from "./slices/waitingListSlice";
 import staffAuthReducer from "./slices/staffAuthSlice";
 
 const persistConfig = {
-  key: "plate-v7",
+  key: "plate-v8",
   storage,
   whitelist: ["auth", "cart", "dineIn", "takeaway", "orders", "tables", "menu", "waiterCalls", "waitingList", "staffAuth"],
 };

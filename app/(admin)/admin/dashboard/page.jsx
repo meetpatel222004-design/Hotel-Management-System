@@ -2,13 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ShoppingCart, Users, DollarSign, Clock, ChevronRight, UtensilsCrossed, ChefHat, BellRing, Briefcase } from "lucide-react";
+import { ShoppingCart, Users, DollarSign, Clock, ChevronRight, UtensilsCrossed, ChefHat, BellRing, Briefcase, ShoppingBag } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { TopBar } from "@/components/layout/TopBar";
 import { useSelector } from "react-redux";
 import { selectActiveOrders } from "@/store/slices/ordersSlice";
 import { selectOccupiedTables, selectTablesWaitingBill } from "@/store/slices/tablesSlice";
 import { selectPendingCalls } from "@/store/slices/waiterCallsSlice";
+import { selectPendingTakeawayOrders } from "@/store/slices/takeawaySlice";
 import { formatPrice } from "@/lib/format";
 
 export default function AdminDashboard() {
@@ -17,6 +18,7 @@ export default function AdminDashboard() {
   const occupiedTables = useSelector(selectOccupiedTables);
   const waitingBillTables = useSelector(selectTablesWaitingBill);
   const pendingCalls = useSelector(selectPendingCalls);
+  const pendingTakeaway = useSelector(selectPendingTakeawayOrders);
 
   const totalRevenue = activeOrders.reduce((sum, o) => sum + o.totalAmount, 0);
 
@@ -26,6 +28,7 @@ export default function AdminDashboard() {
     { label: "Waiting Bill", value: waitingBillTables.length, icon: DollarSign, color: "from-green-500/30 via-green-500/10 to-transparent", action: () => router.push("/admin/billing") },
     { label: "Today Revenue", value: formatPrice(totalRevenue), icon: Clock, color: "from-yellow-500/30 via-yellow-500/10 to-transparent", action: () => {} },
     { label: "Waiter Calls", value: pendingCalls.length, icon: BellRing, color: "from-red-500/30 via-red-500/10 to-transparent", action: () => {} },
+    { label: "Takeaway", value: pendingTakeaway.length, icon: ShoppingBag, color: "from-cyan-500/30 via-cyan-500/10 to-transparent", action: () => router.push("/admin/takeaway") },
   ];
 
   const quickActions = [
@@ -35,6 +38,7 @@ export default function AdminDashboard() {
     { label: "Billing", icon: DollarSign, path: "/admin/billing" },
     { label: "Manager", icon: Briefcase, path: "/manager/dashboard" },
     { label: "Kitchen", icon: ChefHat, path: "/kitchen/dashboard" },
+    { label: "Takeaway", icon: ShoppingBag, path: "/admin/takeaway" },
   ];
 
   return (

@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllOrders, updateGroupStatus } from "@/store/slices/ordersSlice";
 import { selectPendingCalls, acceptCall, resolveCall } from "@/store/slices/waiterCallsSlice";
+import { useRealtimeSync, useCallAlert } from "@/hooks/useRealtimeSync";
 
 const CALL_REASONS = {
   water: "Need Water",
@@ -21,6 +22,8 @@ export default function WaiterDashboard() {
   const dispatch = useDispatch();
   const orders = useSelector(selectAllOrders);
   const pendingCalls = useSelector(selectPendingCalls);
+  const { pendingCallCount } = useRealtimeSync();
+  useCallAlert();
 
   const handleMarkServed = (orderId, groupId) => {
     dispatch(updateGroupStatus({ orderId, groupId, status: "served" }));
