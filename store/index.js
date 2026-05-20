@@ -9,11 +9,14 @@ import uiReducer from "./slices/uiSlice";
 import ordersReducer from "./slices/ordersSlice";
 import tablesReducer from "./slices/tablesSlice";
 import menuReducer from "./slices/menuSlice";
+import waiterCallsReducer from "./slices/waiterCallsSlice";
+import waitingListReducer from "./slices/waitingListSlice";
+import staffAuthReducer from "./slices/staffAuthSlice";
 
 const persistConfig = {
-  key: "plate-cart-v5",
+  key: "plate-v7",
   storage,
-  whitelist: ["auth", "cart", "dineIn", "takeaway", "orders", "tables", "menu"],
+  whitelist: ["auth", "cart", "dineIn", "takeaway", "orders", "tables", "menu", "waiterCalls", "waitingList", "staffAuth"],
 };
 
 const rootReducer = {
@@ -25,6 +28,9 @@ const rootReducer = {
   orders: ordersReducer,
   tables: tablesReducer,
   menu: menuReducer,
+  waiterCalls: waiterCallsReducer,
+  waitingList: waitingListReducer,
+  staffAuth: staffAuthReducer,
 };
 
 const persistedRootReducer = (state, action) => {
@@ -48,6 +54,9 @@ const persistedReducer = persistReducer(persistConfig, (state, action) => {
         orders: ordersReducer(incoming.orders, action),
         tables: tablesReducer(incoming.tables, action),
         menu: menuReducer(incoming.menu, action),
+        waiterCalls: waiterCallsReducer(incoming.waiterCalls, action),
+        waitingList: waitingListReducer(incoming.waitingList, action),
+        staffAuth: staffAuthReducer(incoming.staffAuth, action),
       };
     }
   }

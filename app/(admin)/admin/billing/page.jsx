@@ -50,7 +50,7 @@ export default function AdminBillingPage() {
   );
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
       <TopBar title="Billing" subtitle="Invoice management" backTo="/admin/dashboard" />
 
       {/* Summary cards */}

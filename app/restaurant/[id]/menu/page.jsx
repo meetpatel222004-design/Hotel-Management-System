@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Flame, Plus, Minus, Search, Star, Clock, ChevronRight, ShoppingCart } from "lucide-react";
+import { Flame, Plus, Minus, Search, Star, Clock, ChevronRight, ShoppingCart, BellRing } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { TopBar } from "@/components/layout/TopBar";
 import { StatusBadge } from "@/components/ui/StatusBadge";
@@ -63,9 +63,18 @@ export default function MenuPage() {
         title={restaurant.name}
         subtitle={`Table ${tableNumber}`}
         right={
-          <div className="flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-xs">
-            <Star className="h-3 w-3 fill-primary text-primary" />
-            {restaurant.rating}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => router.push("/call-waiter")}
+              className="flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-xs hover:bg-white/10 transition"
+            >
+              <BellRing className="h-3 w-3 text-primary" />
+              <span className="hidden sm:inline">Call</span>
+            </button>
+            <div className="flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-xs">
+              <Star className="h-3 w-3 fill-primary text-primary" />
+              {restaurant.rating}
+            </div>
           </div>
         }
         backTo={hasActiveOrder && !isBillGenerated ? `/order/${orderId}` : null}

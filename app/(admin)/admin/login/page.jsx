@@ -2,43 +2,39 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Lock, User } from "lucide-react";
+import { Lock } from "lucide-react";
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
+import { useDispatch } from "react-redux";
+import { staffLogin } from "@/store/slices/staffAuthSlice";
 
 export default function AdminLogin() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
+      dispatch(staffLogin({ role: "admin", name: "Admin", staffId: email || "admin" }));
       router.push("/admin/dashboard");
     }, 500);
   };
 
   return (
     <Container className="min-h-screen flex items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-sm"
-      >
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
         <div className="glass-strong rounded-3xl p-8 ring-glow">
           <div className="flex items-center justify-center mb-6">
             <div className="h-12 w-12 rounded-2xl bg-primary/20 grid place-items-center">
               <Lock className="h-6 w-6 text-primary" />
             </div>
           </div>
-
           <h1 className="text-2xl font-bold text-center mb-1">Restaurant Admin</h1>
-          <p className="text-sm text-muted-foreground text-center mb-6">
-            Sign in to manage your restaurant
-          </p>
-
+          <p className="text-sm text-muted-foreground text-center mb-6">Sign in to manage your restaurant</p>
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1.5">Email</label>
@@ -50,18 +46,16 @@ export default function AdminLogin() {
                 className="w-full glass rounded-2xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium mb-1.5">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="--------"
                 className="w-full glass rounded-2xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
-
             <motion.button
               whileTap={{ scale: 0.98 }}
               type="submit"
@@ -71,10 +65,7 @@ export default function AdminLogin() {
               {loading ? "Signing in..." : "Sign in"}
             </motion.button>
           </form>
-
-          <p className="text-xs text-muted-foreground text-center mt-4">
-            Demo: Use any email and password
-          </p>
+          <p className="text-xs text-muted-foreground text-center mt-4">Demo: Use any email and password</p>
         </div>
       </motion.div>
     </Container>

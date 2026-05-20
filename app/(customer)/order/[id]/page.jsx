@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChefHat, Flame, Receipt, Plus, ChevronLeft } from "lucide-react";
+import { Check, ChefHat, Flame, Receipt, Plus, ChevronLeft, BellRing } from "lucide-react";
 import { useEffect } from "react";
 import { Container } from "@/components/ui/Container";
 import { TopBar } from "@/components/layout/TopBar";
@@ -119,6 +119,15 @@ export default function OrderTrackingPage() {
         subtitle={`${restaurantName}${tableNumber ? ` · Table ${tableNumber}` : ""}`}
         backButton={!isBillGenerated}
         onBack={handleBackToMenu}
+        right={
+          <button
+            onClick={() => router.push("/call-waiter")}
+            className="flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-xs hover:bg-white/10 transition"
+          >
+            <BellRing className="h-3 w-3 text-primary" />
+            <span className="hidden sm:inline">Call Waiter</span>
+          </button>
+        }
       />
 
       {/* Status hero */}

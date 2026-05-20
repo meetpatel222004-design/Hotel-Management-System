@@ -108,6 +108,10 @@ const tablesSlice = createSlice({
         table.activeGroups = 0;
       }
     },
+
+    addTable(state, action) {
+      state.tables.push(action.payload);
+    },
   },
 });
 
@@ -117,6 +121,7 @@ export const {
   updateTableBill,
   updateTableActiveGroups,
   closeTable,
+  addTable,
 } = tablesSlice.actions;
 
 export const selectAllTables = (state) => state.tables.tables;

@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ChefHat } from "lucide-react";
+import { Briefcase } from "lucide-react";
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { useDispatch } from "react-redux";
 import { staffLogin } from "@/store/slices/staffAuthSlice";
 
-export default function KitchenLogin() {
+export default function ManagerLogin() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [staffId, setStaffId] = useState("");
@@ -18,8 +18,8 @@ export default function KitchenLogin() {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      dispatch(staffLogin({ role: "kitchen", name: "Kitchen Staff", staffId: staffId || "K001" }));
-      router.push("/kitchen/dashboard");
+      dispatch(staffLogin({ role: "manager", name: "Manager", staffId: staffId || "M001" }));
+      router.push("/manager/dashboard");
     }, 500);
   };
 
@@ -29,11 +29,11 @@ export default function KitchenLogin() {
         <div className="glass-strong rounded-3xl p-8 ring-glow">
           <div className="flex items-center justify-center mb-6">
             <div className="h-12 w-12 rounded-2xl bg-primary/20 grid place-items-center">
-              <ChefHat className="h-6 w-6 text-primary" />
+              <Briefcase className="h-6 w-6 text-primary" />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-center mb-1">Kitchen Staff</h1>
-          <p className="text-sm text-muted-foreground text-center mb-6">Login to receive and prepare orders</p>
+          <h1 className="text-2xl font-bold text-center mb-1">Manager Login</h1>
+          <p className="text-sm text-muted-foreground text-center mb-6">Manage daily restaurant operations</p>
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1.5">Staff ID</label>
@@ -41,7 +41,7 @@ export default function KitchenLogin() {
                 type="text"
                 value={staffId}
                 onChange={(e) => setStaffId(e.target.value)}
-                placeholder="K001"
+                placeholder="M001"
                 className="w-full glass rounded-2xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
