@@ -34,7 +34,7 @@ export default function AdminTakeawayPage() {
   const completedOrders = allOrders.filter((o) => ["completed", "rejected"].includes(o.status));
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Takeaway Orders" subtitle="Review and manage takeaway orders" backTo="/admin/dashboard" />
 
       {/* Pending review - needs admin action */}

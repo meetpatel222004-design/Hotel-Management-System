@@ -20,7 +20,7 @@ export default function ModeSelect() {
   };
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title="How are you dining?" />
       <div className="mt-8">
         <h2 className="text-2xl font-bold tracking-tight">How would you like to order?</h2>

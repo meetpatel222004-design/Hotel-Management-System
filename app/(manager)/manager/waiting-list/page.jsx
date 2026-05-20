@@ -28,7 +28,7 @@ export default function WaitingListPage() {
   const completedEntries = entries.filter((e) => e.status === "seated" || e.status === "cancelled");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Waiting List" subtitle="Manage customer queue" backTo="/manager/dashboard" />
 
       <motion.button
@@ -42,7 +42,7 @@ export default function WaitingListPage() {
       </motion.button>
 
       {/* Stats */}
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <div className="mt-6 grid grid-cols-3 sm:grid-cols-3 gap-3">
         <div className="glass-strong rounded-2xl p-3 text-center">
           <p className="text-2xl font-bold">{activeEntries.filter((e) => e.status === "waiting").length}</p>
           <p className="text-xs text-muted-foreground">Waiting</p>

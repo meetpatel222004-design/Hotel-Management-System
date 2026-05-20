@@ -20,10 +20,10 @@ export default function AdminTablesPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-4xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
       <TopBar title="Tables" subtitle="Table management" backTo="/admin/dashboard" />
 
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {tables.map((table, idx) => (
           <motion.button
             key={table.id}

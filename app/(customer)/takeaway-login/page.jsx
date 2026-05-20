@@ -130,7 +130,7 @@ export default function TakeawayLogin() {
   const otpComplete = otp.join("").length === OTP_LENGTH;
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title="Order for pickup" />
       <AnimatePresence mode="wait">
         <motion.div

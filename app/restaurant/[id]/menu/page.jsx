@@ -58,7 +58,7 @@ export default function MenuPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-32">
+    <Container className="min-h-screen pb-32 max-w-3xl mx-auto">
       <TopBar
         title={restaurant.name}
         subtitle={`Table ${tableNumber}`}
@@ -150,7 +150,7 @@ export default function MenuPage() {
       </div>
 
       {/* Category tabs */}
-      <div className="mt-4 -mx-5 px-5 flex gap-2 overflow-x-auto scroll-hide">
+      <div className="mt-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 flex gap-2 overflow-x-auto scroll-hide">
         {SERVING_GROUPS.map((g) => {
           const isActive = activeGroup === g.id;
           return (

@@ -46,7 +46,7 @@ export default function ManagerStaffPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Staff" subtitle="Manage staff accounts" backTo="/manager/dashboard" />
 
       <motion.button

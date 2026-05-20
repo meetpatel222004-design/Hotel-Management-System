@@ -60,7 +60,7 @@ export default function Bill() {
   }
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title="Bill" subtitle={`#${id}`} noBack />
 
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5">

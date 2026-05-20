@@ -55,7 +55,7 @@ export default function TakeawayOrder() {
   }, [takeawayStatus, dispatch, router]);
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title="Pickup order" subtitle={`#${id}`} noBack />
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5 ring-glow overflow-hidden relative">
         <div className="pointer-events-none absolute -top-20 -right-20 h-48 w-48 rounded-full bg-primary/30 blur-3xl" />

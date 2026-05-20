@@ -24,7 +24,7 @@ export default function AdminBillingPage() {
   const completedAmount = completedBills.reduce((sum, o) => sum + o.totalAmount, 0);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Billing" subtitle="Invoice management" backTo="/admin/dashboard" />
 
       {/* Summary cards */}

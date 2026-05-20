@@ -23,7 +23,7 @@ export default function WaiterCallsPage() {
   const accepted = calls.filter((c) => c.status === "accepted");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Waiter Calls" subtitle="Customer requests" backTo="/waiter/dashboard" />
 
       {/* Pending calls */}

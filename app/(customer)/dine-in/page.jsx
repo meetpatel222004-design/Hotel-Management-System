@@ -11,7 +11,7 @@ export default function DineInEntry() {
   useDineInLockGuard();
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title="Dine-in" />
 
       <div className="mt-8">

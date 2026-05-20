@@ -84,7 +84,7 @@ export default function ManualOrderPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <AnimatePresence mode="wait">
         {step === "order" ? (
           <motion.div key="order" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
@@ -128,7 +128,7 @@ export default function ManualOrderPage() {
             </div>
 
             {/* Category tabs */}
-            <div className="mt-4 -mx-5 px-5 flex gap-2 overflow-x-auto scroll-hide">
+            <div className="mt-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 flex gap-2 overflow-x-auto scroll-hide">
               {categories.map((cat) => (
                 <button
                   key={cat}

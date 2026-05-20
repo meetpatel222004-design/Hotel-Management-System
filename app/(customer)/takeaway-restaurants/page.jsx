@@ -49,7 +49,7 @@ export default function TakeawayRestaurants() {
 
   return (
     <>
-      <Container className="min-h-screen pb-10">
+      <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
         <TopBar title="Pick a restaurant" subtitle="Pre-order & pay for pickup" />
         <div className="mt-5 flex items-center gap-2 rounded-2xl glass px-4 h-12">
           <Search className="h-4 w-4 text-muted-foreground" />

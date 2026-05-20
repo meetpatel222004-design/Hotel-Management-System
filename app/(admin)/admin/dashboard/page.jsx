@@ -42,10 +42,10 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <Container className="min-h-screen pb-10 max-w-4xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
       <TopBar title="Admin Dashboard" subtitle="Restaurant Management" noBack />
 
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
         {stats.map((stat, idx) => (
           <motion.button
             key={idx}
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
 
       <div className="mt-8">
         <h2 className="text-sm font-semibold mb-3 px-1">Quick Actions</h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-3">
           {quickActions.map((action, idx) => (
             <motion.button
               key={idx}

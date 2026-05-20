@@ -38,7 +38,7 @@ export default function AdminTableDetail() {
   const mapStatus = (s) => s === "empty" ? "available" : s === "waiting-bill" ? "waiting" : s;
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title={`Table ${table.number}`} subtitle={`${table.capacity} seats`} backTo="/admin/tables" />
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5 ring-glow">

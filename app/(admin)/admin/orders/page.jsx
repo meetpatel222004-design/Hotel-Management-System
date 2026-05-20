@@ -34,7 +34,7 @@ export default function AdminOrdersPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Orders" subtitle="All active orders" backTo="/admin/dashboard" />
 
       <div className="mt-6 space-y-3">

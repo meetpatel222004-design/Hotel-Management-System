@@ -49,8 +49,8 @@ export default function WaiterDashboard() {
     .filter((g) => g.status === "ready");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-4xl mx-auto">
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur -mx-5 px-5 py-3 border-b border-white/5 mb-4">
+    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur px-4 sm:px-6 lg:px-8 py-3 border-b border-white/5 mb-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl md:text-2xl font-bold">Waiter Dashboard</h1>
@@ -134,7 +134,7 @@ export default function WaiterDashboard() {
             <p className="text-sm text-muted-foreground mt-1">Check back soon</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {readyToServe.map((group, idx) => (
               <motion.div
                 key={`${group.orderId}-${group.id}`}

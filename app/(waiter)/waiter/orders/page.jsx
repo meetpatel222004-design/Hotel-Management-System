@@ -29,7 +29,7 @@ export default function WaiterOrdersPage() {
   const otherGroups = activeGroups.filter((g) => g.status !== "ready");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="All Orders" subtitle="Order tracking" backTo="/waiter/dashboard" />
 
       {/* Ready to serve */}

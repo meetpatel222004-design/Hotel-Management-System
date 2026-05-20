@@ -113,7 +113,7 @@ export default function OrderTrackingPage() {
   const allServed = orderGroups.every((g) => g.status === GROUP_STATUS.SERVED);
 
   return (
-    <Container className="min-h-screen pb-20">
+    <Container className="min-h-screen pb-20 max-w-3xl mx-auto">
       <TopBar
         title="Order status"
         subtitle={`${restaurantName}${tableNumber ? ` · Table ${tableNumber}` : ""}`}

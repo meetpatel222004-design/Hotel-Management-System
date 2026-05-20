@@ -84,8 +84,8 @@ export default function KitchenDashboard() {
   const readyForPickup = activeGroups.filter((g) => g.status === "ready");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-4xl mx-auto">
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur -mx-5 px-5 py-3 border-b border-white/5 mb-4">
+    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur px-4 sm:px-6 lg:px-8 py-3 border-b border-white/5 mb-4">
         <h1 className="text-xl md:text-2xl font-bold">Kitchen</h1>
         <p className="text-xs text-muted-foreground mt-1">
           {needsAction.length} to prepare · {readyForPickup.length} waiting for waiter
@@ -106,7 +106,7 @@ export default function KitchenDashboard() {
               <h2 className="text-sm font-semibold text-muted-foreground mb-3 px-1">
                 Needs Action ({needsAction.length})
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {needsAction.map((group, idx) => {
                   const Icon = getButtonIcon(group.status);
                   return (
@@ -163,7 +163,7 @@ export default function KitchenDashboard() {
               <h2 className="text-sm font-semibold text-green-500 mb-3 px-1">
                 Ready for Waiter ({readyForPickup.length})
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {readyForPickup.map((group, idx) => (
                   <motion.div
                     key={`${group.orderId}-${group.id}`}

@@ -37,7 +37,7 @@ export default function CallWaiterPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-lg mx-auto">
+    <Container className="min-h-screen pb-10 max-w-xl mx-auto">
       <TopBar title="Call Waiter" subtitle={tableNumber ? `Table ${tableNumber}` : "Your table"} backTo={tableNumber ? `/restaurant/spice-garden/menu` : "/"} />
 
       <div className="mt-6">

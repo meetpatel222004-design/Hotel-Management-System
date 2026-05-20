@@ -48,7 +48,7 @@ export default function TakeawayPayment() {
   const itemCount = items.reduce((n, i) => n + i.qty, 0);
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title="Confirm your order" subtitle={restaurantName ?? "Takeaway"} />
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5 overflow-hidden relative">
         <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />

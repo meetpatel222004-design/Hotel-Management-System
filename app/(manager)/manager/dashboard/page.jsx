@@ -32,7 +32,7 @@ export default function ManagerDashboard() {
     { label: "Occupied Tables", value: occupiedTables.length, icon: Users, color: "from-blue-500/30 via-blue-500/10 to-transparent", action: () => router.push("/manager/tables") },
     { label: "Revenue", value: formatPrice(totalRevenue), icon: DollarSign, color: "from-green-500/30 via-green-500/10 to-transparent", action: () => {} },
     { label: "Waiting List", value: waitingEntries.length, icon: Clock, color: "from-yellow-500/30 via-yellow-500/10 to-transparent", action: () => router.push("/manager/waiting-list") },
-    { label: "Waiter Calls", value: pendingCalls.length, icon: BellRing, color: "from-red-500/30 via-red-500/10 to-transparent", action: () => router.push("/manager/waiting-list") },
+    { label: "Waiter Calls", value: pendingCalls.length, icon: BellRing, color: "from-red-500/30 via-red-500/10 to-transparent", action: () => router.push("/manager/calls") },
     { label: "Total Tables", value: allTables.length, icon: UtensilsCrossed, color: "from-accent/30 via-accent/10 to-transparent", action: () => router.push("/manager/tables") },
   ];
 
@@ -42,15 +42,15 @@ export default function ManagerDashboard() {
     { label: "Menu", icon: ChefHat, path: "/manager/menu" },
     { label: "Waiting List", icon: CalendarCheck, path: "/manager/waiting-list" },
     { label: "Staff", icon: UserCheck, path: "/manager/staff" },
-    { label: "Waiter Calls", icon: BellRing, path: "/manager/waiting-list" },
+    { label: "Waiter Calls", icon: BellRing, path: "/manager/calls" },
   ];
 
   return (
-    <Container className="min-h-screen pb-10 max-w-4xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
       <TopBar title="Manager Dashboard" subtitle="Daily Operations" noBack />
 
       {/* Stats */}
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
         {stats.map((stat, idx) => (
           <StatCard key={idx} {...stat} />
         ))}
@@ -59,7 +59,7 @@ export default function ManagerDashboard() {
       {/* Quick Actions */}
       <div className="mt-8">
         <h2 className="text-sm font-semibold mb-3 px-1">Quick Actions</h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
           {quickActions.map((action, idx) => (
             <motion.button
               key={idx}

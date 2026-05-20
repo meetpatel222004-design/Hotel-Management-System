@@ -15,7 +15,7 @@ export default function ManagerOrdersPage() {
   const orders = useSelector(selectAllOrders);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Orders" subtitle="All active orders" backTo="/manager/dashboard" />
 
       <div className="mt-6 space-y-3">

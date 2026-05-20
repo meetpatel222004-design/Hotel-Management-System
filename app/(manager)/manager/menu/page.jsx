@@ -39,7 +39,7 @@ export default function ManagerMenuPage() {
   const [showAddModal, setShowAddModal] = useState(false);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-2xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
       <TopBar title="Menu" subtitle="Manage menu items" backTo="/manager/dashboard" />
 
       <motion.button

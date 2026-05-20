@@ -91,7 +91,7 @@ export default function CartPage() {
   }
 
   return (
-    <Container className="min-h-screen pb-10">
+    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
       <TopBar title="Your cart" subtitle={restaurantName ?? "Restaurant"} />
 
       {/* Serving time info — shown for dine-in */}
