@@ -19,7 +19,7 @@ export default function ManagerTablesPage() {
   const [showAddModal, setShowAddModal] = useState(false);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-7xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Tables" subtitle="Table management" backTo="/manager/dashboard" />
 
       <motion.button
@@ -32,7 +32,7 @@ export default function ManagerTablesPage() {
         <span className="font-semibold text-sm">Add new table</span>
       </motion.button>
 
-      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
         {tables.map((table, idx) => (
           <motion.button
             key={table.id}
@@ -44,7 +44,7 @@ export default function ManagerTablesPage() {
           >
             <div className="flex items-start justify-between mb-2">
               <div>
-                <p className="font-bold text-2xl">T{table.number}</p>
+                <p className="font-bold text-xl sm:text-2xl lg:text-3xl">T{table.number}</p>
                 <p className="text-xs text-muted-foreground">{table.capacity} seats</p>
               </div>
               <StatusPill status={table.status === "empty" ? "available" : table.status === "waiting-bill" ? "waiting" : table.status} />

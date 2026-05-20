@@ -39,7 +39,7 @@ export default function AdminMenuPage() {
   const [showAddModal, setShowAddModal] = useState(false);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Menu" subtitle="Manage menu items" backTo="/admin/dashboard" />
 
       <motion.button
@@ -58,8 +58,8 @@ export default function AdminMenuPage() {
 
         return (
           <div key={cat.id} className="mt-8">
-            <h2 className="text-sm font-semibold mb-3 px-1">{cat.label}</h2>
-            <div className="space-y-2">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1">{cat.label}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
               {categoryItems.map((item) => (
                 <motion.div
                   key={item.id}

@@ -55,17 +55,17 @@ export default function TakeawayOrder() {
   }, [takeawayStatus, dispatch, router]);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Pickup order" subtitle={`#${id}`} noBack />
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5 ring-glow overflow-hidden relative">
         <div className="pointer-events-none absolute -top-20 -right-20 h-48 w-48 rounded-full bg-primary/30 blur-3xl" />
         <div className="relative">
           <div className="text-xs uppercase tracking-wider text-muted-foreground">{takeawayStatus === "ready" ? "Ready at" : takeawayStatus === "completed" ? "Picked up" : "Pickup ETA"}</div>
-          <div className="mt-1 text-3xl font-bold tracking-tight">{takeawayStatus === "completed" ? "Done!" : "15 - 25 min"}</div>
+          <div className="mt-1 text-2xl sm:text-3xl font-bold tracking-tight">{takeawayStatus === "completed" ? "Done!" : "15 - 25 min"}</div>
           <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground"><span>{restaurantName}</span><span>·</span><span className="text-[oklch(0.74_0.17_155)]">Paid {formatPrice(total)}</span></div>
         </div>
       </motion.div>
-      <div className="mt-6 space-y-3">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {STAGES.map((s, i) => {
           const Icon = s.icon;
           const done = i < stage;
@@ -85,8 +85,8 @@ export default function TakeawayOrder() {
           );
         })}
       </div>
-      <div className="mt-8 space-y-2">
-        <h3 className="px-1 text-xs uppercase tracking-wider text-muted-foreground">Your order</h3>
+      <div className="mt-8 space-y-3 sm:space-y-4">
+        <h3 className="px-1 text-xs sm:text-sm uppercase tracking-wider text-muted-foreground">Your order</h3>
         <div className="glass rounded-2xl divide-y divide-white/5">
           {items.map((i) => (<div key={i.id} className="p-3 flex items-center gap-3"><img src={i.image} alt={i.name} loading="lazy" className="h-12 w-12 rounded-lg object-cover" /><div className="flex-1 min-w-0"><div className="text-sm font-medium truncate">{i.name}</div><div className="text-xs text-muted-foreground">Qty {i.qty}</div></div><div className="text-sm font-medium tabular-nums">{formatPrice(i.price * i.qty)}</div></div>))}
         </div>

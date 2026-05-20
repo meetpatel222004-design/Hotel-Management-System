@@ -91,7 +91,7 @@ export default function CartPage() {
   }
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Your cart" subtitle={restaurantName ?? "Restaurant"} />
 
       {/* Serving time info — shown for dine-in */}
@@ -112,12 +112,12 @@ export default function CartPage() {
       )}
 
       {/* Cart items grouped by category */}
-      <div className="mt-5 space-y-5">
+      <div className="mt-5 space-y-6 sm:space-y-8">
         {grouped.map(({ group, items }) => (
           <div key={group.id}>
             <div className="mb-2 flex items-center gap-2 px-1">
               <span>{group.emoji}</span>
-              <h3 className="text-sm font-semibold">{group.label}</h3>
+              <h3 className="text-sm sm:text-base font-semibold">{group.label}</h3>
             </div>
             <div className="glass rounded-2xl divide-y divide-white/5">
               {items.map((item) => (

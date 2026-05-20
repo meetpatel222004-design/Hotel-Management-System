@@ -46,7 +46,7 @@ export default function ManagerStaffPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Staff" subtitle="Manage staff accounts" backTo="/manager/dashboard" />
 
       <motion.button
@@ -64,11 +64,11 @@ export default function ManagerStaffPage() {
         const Icon = ROLE_ICONS[role];
         return (
           <div key={role} className="mt-8">
-            <h2 className="text-sm font-semibold mb-3 px-1 flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 px-1 flex items-center gap-2">
               <Icon className="h-4 w-4 text-primary" />
               {ROLE_LABELS[role]}s
             </h2>
-            <div className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {members.map((member) => (
                 <motion.div
                   key={member.id}

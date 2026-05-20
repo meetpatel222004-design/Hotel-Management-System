@@ -49,13 +49,13 @@ export default function TakeawayRestaurants() {
 
   return (
     <>
-      <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+      <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
         <TopBar title="Pick a restaurant" subtitle="Pre-order & pay for pickup" />
         <div className="mt-5 flex items-center gap-2 rounded-2xl glass px-4 h-12">
           <Search className="h-4 w-4 text-muted-foreground" />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search cuisine or place" className="flex-1 bg-transparent outline-none text-sm placeholder:text-muted-foreground" />
         </div>
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {list.map((r, i) => (
             <motion.button key={r.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, duration: 0.4 }} onClick={() => pick(r.id, r.name)} className="block w-full text-left group">
               <div className="relative overflow-hidden rounded-3xl glass-strong">

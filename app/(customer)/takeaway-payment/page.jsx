@@ -48,7 +48,7 @@ export default function TakeawayPayment() {
   const itemCount = items.reduce((n, i) => n + i.qty, 0);
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Confirm your order" subtitle={restaurantName ?? "Takeaway"} />
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5 overflow-hidden relative">
         <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
@@ -59,12 +59,12 @@ export default function TakeawayPayment() {
         </div>
       </motion.div>
       <div className="mt-4 glass rounded-2xl divide-y divide-white/5">
-        {items.map((i) => (<div key={i.id} className="p-3 flex items-center gap-3"><img src={i.image} alt={i.name} loading="lazy" className="h-10 w-10 rounded-lg object-cover" /><div className="flex-1 min-w-0"><div className="text-sm font-medium truncate">{i.name}</div><div className="text-xs text-muted-foreground">Qty {i.qty}</div></div><div className="text-sm font-medium tabular-nums">{formatPrice(i.price * i.qty)}</div></div>))}
+        {items.map((i) => (<div key={i.id} className="p-3 sm:p-4 flex items-center gap-3 sm:gap-4"><img src={i.image} alt={i.name} loading="lazy" className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-cover" /><div className="flex-1 min-w-0"><div className="text-sm font-medium truncate">{i.name}</div><div className="text-xs text-muted-foreground">Qty {i.qty}</div></div><div className="text-sm font-medium tabular-nums">{formatPrice(i.price * i.qty)}</div></div>))}
         <div className="p-3 flex justify-between text-xs text-muted-foreground"><span>Taxes (5%)</span><span className="text-foreground tabular-nums">{formatPrice(taxes)}</span></div>
         <div className="p-3 flex justify-between font-semibold text-sm"><span>Total</span><span className="tabular-nums">{formatPrice(total)}</span></div>
       </div>
       <div className="mt-6">
-        <h3 className="text-sm font-semibold tracking-tight px-1 mb-3">Payment method</h3>
+        <h3 className="text-sm sm:text-base font-semibold tracking-tight px-1 mb-3">Payment method</h3>
         <div className="grid grid-cols-3 gap-2">
           <PayOption m="upi" current={method} onClick={setMethod} icon={<Smartphone className="h-5 w-5" />} label="UPI" />
           <PayOption m="card" current={method} onClick={setMethod} icon={<CreditCard className="h-5 w-5" />} label="Card" />

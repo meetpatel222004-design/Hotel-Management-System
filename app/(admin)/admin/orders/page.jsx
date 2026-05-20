@@ -34,10 +34,10 @@ export default function AdminOrdersPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Orders" subtitle="All active orders" backTo="/admin/dashboard" />
 
-      <div className="mt-6 space-y-3">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {orders.map((order, idx) => (
           <motion.button
             key={order.id}

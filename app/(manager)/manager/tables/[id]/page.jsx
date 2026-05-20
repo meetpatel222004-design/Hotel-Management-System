@@ -38,14 +38,14 @@ export default function ManagerTableDetail() {
   const mapStatus = (s) => s === "empty" ? "available" : s === "waiting-bill" ? "waiting" : s;
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title={`Table ${table.number}`} subtitle={`${table.capacity} seats`} backTo="/manager/tables" />
 
       {/* Table status card */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5 ring-glow">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-4xl font-black">T{table.number}</p>
+            <p className="text-3xl sm:text-4xl lg:text-5xl font-black">T{table.number}</p>
             <p className="text-sm text-muted-foreground mt-1">{table.capacity} seats</p>
           </div>
           <StatusPill status={mapStatus(table.status)} />
@@ -135,7 +135,7 @@ export default function ManagerTableDetail() {
         {tableOrders.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-6">No orders for this table</p>
         ) : (
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {tableOrders.map((order) => (
               <div key={order.id} className="glass rounded-2xl p-3 flex items-center justify-between">
                 <div>

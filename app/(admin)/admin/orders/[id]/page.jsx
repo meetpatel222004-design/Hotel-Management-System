@@ -34,7 +34,7 @@ export default function AdminOrderDetail() {
   }
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title={`Order ${order.id}`} subtitle={`Table ${order.tableNumber}`} backTo="/admin/orders" />
 
       {/* Order header */}
@@ -45,7 +45,7 @@ export default function AdminOrderDetail() {
       >
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-3xl font-black">Table {order.tableNumber}</p>
+            <p className="text-2xl sm:text-3xl lg:text-4xl font-black">Table {order.tableNumber}</p>
             <p className="text-sm text-muted-foreground mt-1">
               {order.groups.length} group{order.groups.length !== 1 ? "s" : ""}
             </p>
@@ -62,7 +62,7 @@ export default function AdminOrderDetail() {
       </motion.div>
 
       {/* Order groups */}
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {order.groups.map((group, idx) => (
           <motion.div
             key={group.id}

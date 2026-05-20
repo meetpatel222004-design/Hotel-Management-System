@@ -25,11 +25,11 @@ export default function ManagerCallsPage() {
   const resolved = calls.filter((c) => c.status === "resolved");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Waiter Calls" subtitle="Customer call requests" backTo="/manager/dashboard" />
 
       {/* Stats */}
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
         <div className="glass-strong rounded-2xl p-3 text-center">
           <p className="text-2xl font-bold text-red-400">{pending.length}</p>
           <p className="text-xs text-muted-foreground">Pending</p>
@@ -47,11 +47,11 @@ export default function ManagerCallsPage() {
       {/* Pending calls */}
       {pending.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-red-400 mb-3 px-1 flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-red-400 mb-3 px-1 flex items-center gap-2">
             <BellRing className="h-4 w-4 animate-pulse" />
             Pending ({pending.length})
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {pending.map((call) => (
               <motion.div
                 key={call.id}
@@ -60,7 +60,7 @@ export default function ManagerCallsPage() {
                 className="rounded-2xl p-4 border-2 border-red-500/40 bg-red-500/10"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-2xl font-black">Table {call.tableNumber}</p>
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-black">Table {call.tableNumber}</p>
                   <BellRing className="h-6 w-6 text-red-400 animate-pulse" />
                 </div>
                 <p className="text-sm text-red-400 font-semibold mb-3">{CALL_REASONS[call.reason]}</p>
@@ -78,7 +78,7 @@ export default function ManagerCallsPage() {
       {/* Accepted calls */}
       {accepted.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-blue-400 mb-3 px-1">Accepted ({accepted.length})</h2>
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-blue-400 mb-3 px-1">Accepted ({accepted.length})</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {accepted.map((call) => (
               <div key={call.id} className="glass rounded-2xl p-3">
@@ -96,7 +96,7 @@ export default function ManagerCallsPage() {
       {/* Resolved */}
       {resolved.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-green-400 mb-3 px-1">Resolved ({resolved.length})</h2>
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-green-400 mb-3 px-1">Resolved ({resolved.length})</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {resolved.map((call) => (
               <div key={call.id} className="glass rounded-2xl p-3 opacity-50">

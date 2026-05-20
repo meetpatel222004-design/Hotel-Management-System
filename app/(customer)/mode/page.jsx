@@ -20,13 +20,13 @@ export default function ModeSelect() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="How are you dining?" />
       <div className="mt-8">
-        <h2 className="text-2xl font-bold tracking-tight">How would you like to order?</h2>
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">How would you like to order?</h2>
         <p className="mt-1 text-sm text-muted-foreground">Choose your dining preference.</p>
       </div>
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <Tile onClick={() => pick("dine-in")} icon={<QrCode className="h-6 w-6" />} title="Dine-in" desc="Scan the QR at your table or search nearby. No sign-in needed." gradient="from-primary/30 via-primary/10 to-transparent" />
         <Tile onClick={() => pick("takeaway")} icon={<ShoppingBag className="h-6 w-6" />} title="Takeaway" desc="Sign in with your phone, pre-order, pay, and pick up fresh." gradient="from-accent/30 via-accent/10 to-transparent" delay={0.05} />
       </div>

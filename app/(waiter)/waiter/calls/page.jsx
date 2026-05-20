@@ -23,7 +23,7 @@ export default function WaiterCallsPage() {
   const accepted = calls.filter((c) => c.status === "accepted");
 
   return (
-    <Container className="min-h-screen pb-10 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Waiter Calls" subtitle="Customer requests" backTo="/waiter/dashboard" />
 
       {/* Pending calls */}
@@ -35,7 +35,7 @@ export default function WaiterCallsPage() {
         {pending.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-6">No pending calls</p>
         ) : (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {pending.map((call) => (
               <motion.div
                 key={call.id}
@@ -72,7 +72,7 @@ export default function WaiterCallsPage() {
       {accepted.length > 0 && (
         <div className="mt-8">
           <h2 className="text-sm font-semibold text-green-500 mb-3 px-1">My Accepted Calls ({accepted.length})</h2>
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {accepted.map((call) => (
               <motion.div
                 key={call.id}
