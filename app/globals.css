@@ -24,10 +24,10 @@
 
 /* Light theme - Premium SaaS */
 :root[data-theme="light"] {
-  --background: oklch(0.975 0.002 270);
+  --background: oklch(0.968 0.003 270);
   --foreground: oklch(0.145 0.015 270);
   --muted: oklch(0.72 0.01 270);
-  --muted-foreground: oklch(0.5 0.012 270);
+  --muted-foreground: oklch(0.48 0.015 270);
   --primary: oklch(0.78 0.16 75);
   --primary-foreground: oklch(0.98 0.005 75);
   --secondary: oklch(0.94 0.004 270);
@@ -36,12 +36,12 @@
   --accent-foreground: oklch(0.98 0.005 200);
   --destructive: oklch(0.55 0.2 25);
   --card: oklch(0.995 0.001 270);
-  --border: oklch(0.905 0.004 270);
-  --glass-bg: oklch(0.99 0.002 270 / 0.85);
-  --glass-border: oklch(0.88 0.005 270 / 0.7);
-  --glass-strong-bg: oklch(0.995 0.001 270 / 0.95);
-  --glass-strong-border: oklch(0.86 0.005 270 / 0.8);
-  --glow-shadow: 0 1px 3px oklch(0.3 0.01 270 / 0.06), 0 4px 16px -4px oklch(0.3 0.01 270 / 0.08), 0 0 0 1px oklch(0.78 0.16 75 / 0.15);
+  --border: oklch(0.895 0.005 270);
+  --glass-bg: oklch(0.99 0.002 270 / 0.9);
+  --glass-border: oklch(0.87 0.005 270 / 0.8);
+  --glass-strong-bg: oklch(0.995 0.001 270 / 0.97);
+  --glass-strong-border: oklch(0.85 0.005 270 / 0.9);
+  --glow-shadow: 0 1px 2px oklch(0.25 0.01 270 / 0.04), 0 4px 12px -2px oklch(0.25 0.01 270 / 0.06), 0 12px 32px -8px oklch(0.25 0.01 270 / 0.08), 0 0 0 1px oklch(0.78 0.16 75 / 0.12);
 }
 
 @theme inline {
@@ -66,6 +66,12 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+:root[data-theme="light"] body {
+  background: oklch(0.968 0.003 270);
+  background-image: radial-gradient(oklch(0.88 0.005 270 / 0.5) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 .glass {

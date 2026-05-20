@@ -113,7 +113,7 @@ export default function OrderTrackingPage() {
   const allServed = orderGroups.every((g) => g.status === GROUP_STATUS.SERVED);
 
   return (
-    <Container className="min-h-screen pb-20 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-20 max-w-[1600px] mx-auto">
       <TopBar
         title="Order status"
         subtitle={`${restaurantName}${tableNumber ? ` · Table ${tableNumber}` : ""}`}
@@ -161,7 +161,7 @@ export default function OrderTrackingPage() {
       </motion.div>
 
       {/* Order groups */}
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {orderGroups.map((group, idx) => (
           <OrderGroupCard key={group.id} group={group} index={idx} />
         ))}
@@ -251,7 +251,7 @@ function OrderGroupCard({ group, index }) {
       {/* Header */}
       <div className="p-4 border-b border-white/5 flex items-center justify-between">
         <div>
-          <p className="font-semibold text-sm">Group {group.groupNumber}</p>
+          <p className="font-semibold text-sm sm:text-base">Group {group.groupNumber}</p>
           <p className="text-xs text-muted-foreground mt-0.5">{group.servingTimeLabel}</p>
         </div>
         <StatusBadge status={group.status} />

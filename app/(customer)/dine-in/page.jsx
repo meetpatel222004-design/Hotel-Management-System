@@ -11,15 +11,15 @@ export default function DineInEntry() {
   useDineInLockGuard();
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Dine-in" />
 
       <div className="mt-8">
-        <h2 className="text-2xl font-bold tracking-tight">Find your table</h2>
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">Find your table</h2>
         <p className="mt-1 text-sm text-muted-foreground">Scan your table QR or search for the restaurant.</p>
       </div>
 
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <OptionTile
           href="/scan"
           icon={<QrCode className="h-6 w-6" />}

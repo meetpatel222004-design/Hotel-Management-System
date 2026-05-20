@@ -58,7 +58,7 @@ export default function MenuPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-32 max-w-5xl mx-auto">
+    <Container className="min-h-screen pb-32 max-w-[1600px] mx-auto">
       <TopBar
         title={restaurant.name}
         subtitle={`Table ${tableNumber}`}
@@ -145,7 +145,7 @@ export default function MenuPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search menu…"
-          className="flex-1 bg-transparent outline-none text-sm placeholder:text-muted-foreground"
+          className="flex-1 bg-transparent outline-none text-sm sm:text-base placeholder:text-muted-foreground"
         />
       </div>
 
@@ -163,14 +163,14 @@ export default function MenuPage() {
               )}
             >
               <span>{g.emoji}</span>
-              <span className="text-sm font-semibold">{g.label}</span>
+              <span className="text-sm sm:text-base font-semibold">{g.label}</span>
             </button>
           );
         })}
       </div>
 
       {/* Menu items */}
-      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
         <AnimatePresence mode="popLayout">
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (

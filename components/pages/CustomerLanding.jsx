@@ -15,7 +15,7 @@ export default function CustomerLanding() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <GradientBlobs />
-      <Container className="relative pt-10 pb-16 max-w-3xl mx-auto">
+      <Container className="relative pt-10 pb-16 max-w-[1600px] mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground font-bold">

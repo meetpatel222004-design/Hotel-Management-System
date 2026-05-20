@@ -60,7 +60,7 @@ export default function Bill() {
   }
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Bill" subtitle={`#${id}`} noBack />
 
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-6 glass-strong rounded-3xl p-5">
@@ -77,9 +77,9 @@ export default function Bill() {
 
         {orderGroups.map((group, gi) => (
           <div key={group.id}>
-            {gi > 0 && <div className="my-3 h-px bg-border" />}
-            <div className="text-xs text-muted-foreground mb-2">Group {group.groupNumber} · {group.servingTimeLabel}</div>
-            <ul className="space-y-2">
+            {gi > 0 && <div className="my-4 sm:my-5 h-px bg-border" />}
+            <div className="text-xs sm:text-sm text-muted-foreground mb-2">Group {group.groupNumber} · {group.servingTimeLabel}</div>
+            <ul className="space-y-2 sm:space-y-3">
               {group.items.map((i) => (
                 <li key={i.id} className="flex justify-between text-sm">
                   <span className="text-foreground/90"><span className="text-muted-foreground tabular-nums">{i.qty}&times;</span> {i.name}</span>
@@ -102,7 +102,7 @@ export default function Bill() {
       </motion.div>
 
       <div className="mt-6">
-        <h3 className="text-sm font-semibold tracking-tight px-1 mb-3">Payment method</h3>
+        <h3 className="text-sm sm:text-base font-semibold tracking-tight px-1 mb-3">Payment method</h3>
         <div className="grid grid-cols-3 gap-2">
           <PayOption m="upi" current={method} onClick={setMethod} icon={<Smartphone className="h-5 w-5" />} label="UPI" />
           <PayOption m="card" current={method} onClick={setMethod} icon={<CreditCard className="h-5 w-5" />} label="Card" />

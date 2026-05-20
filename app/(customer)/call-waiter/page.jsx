@@ -37,15 +37,15 @@ export default function CallWaiterPage() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Call Waiter" subtitle={tableNumber ? `Table ${tableNumber}` : "Your table"} backTo={tableNumber ? `/restaurant/spice-garden/menu` : "/"} />
 
       <div className="mt-6">
-        <h2 className="text-xl font-bold tracking-tight">What do you need?</h2>
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">What do you need?</h2>
         <p className="text-sm text-muted-foreground mt-1">A waiter will come to your table shortly.</p>
       </div>
 
-      <div className="mt-8 space-y-3">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {REASONS.map((reason, idx) => {
           const Icon = reason.icon;
           const isCalled = called === reason.id;

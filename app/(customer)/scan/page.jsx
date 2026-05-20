@@ -32,7 +32,7 @@ export default function Scan() {
   };
 
   return (
-    <Container className="min-h-screen pb-10 max-w-3xl mx-auto">
+    <Container className="min-h-screen pb-10 max-w-[1600px] mx-auto">
       <TopBar title="Scan table QR" />
       <div className="mt-8 text-center">
         <h2 className="text-2xl font-bold tracking-tight">Point at the QR code</h2>
